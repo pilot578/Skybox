@@ -1,0 +1,185 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@theme inline {
+  --font-sans: var(--font-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --color-cream: var(--cream);
+  --color-blush: var(--blush);
+  --color-rose: var(--rose);
+  --color-petal: var(--petal);
+  --color-line: var(--line);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+/* Palette: blue + white. */
+:root {
+  color-scheme: light;
+  --cream: #f7faff;
+  --petal: #e8f1fd;
+  --blush: #cfe0f8;
+  --rose: #7fa9e3;
+  --line: #d6e3f5;
+
+  --background: #f7faff;
+  --foreground: #2f5ea8;
+  --card: #ffffff;
+  --card-foreground: #2f5ea8;
+  --popover: #ffffff;
+  --popover-foreground: #2f5ea8;
+  --primary: #3b78d8;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf2fd;
+  --secondary-foreground: #3a69b3;
+  --muted: #f0f5fc;
+  --muted-foreground: #6b8fc4;
+  --accent: #e3edfc;
+  --accent-foreground: #2f5ea8;
+  --destructive: #e0707a;
+  --border: #d6e3f5;
+  --input: #d6e3f5;
+  --ring: #7fa9e3;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@utility bg-blueprint {
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--rose) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--rose) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(to right, color-mix(in oklab, var(--rose) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--rose) 7%, transparent) 1px, transparent 1px);
+  background-size:
+    120px 120px,
+    120px 120px,
+    24px 24px,
+    24px 24px;
+}
+
+@keyframes spin-cw {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin-ccw {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes led-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes scan-y {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+@keyframes hum {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(0.4px, -0.3px);
+  }
+  75% {
+    transform: translate(-0.3px, 0.4px);
+  }
+}
+
+.spin-slow {
+  animation: spin-cw 60s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.spin-mid {
+  animation: spin-cw 24s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.spin-fast {
+  animation: spin-cw 8s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.spin-rev {
+  animation: spin-ccw 36s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.spin-rev-fast {
+  animation: spin-ccw 12s linear infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.led {
+  animation: led-pulse 1.8s ease-in-out infinite;
+}
+.flow-dash {
+  stroke-dasharray: 4 6;
+  animation: dash-flow 1.2s linear infinite;
+}
+.hum {
+  animation: hum 0.4s steps(2) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow,
+  .spin-mid,
+  .spin-fast,
+  .spin-rev,
+  .spin-rev-fast,
+  .led,
+  .flow-dash,
+  .hum {
+    animation: none;
+  }
+}
